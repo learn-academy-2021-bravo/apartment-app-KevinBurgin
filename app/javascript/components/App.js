@@ -4,6 +4,9 @@ import Home from './pages/Home'
 import NotFound from './pages/NotFound'
 import ApartmentIndex from './pages/ApartmentIndex'
 import ApartmentShow from './pages/ApartmentShow'
+import ApartmentNew from './pages/ApartmentNew'
+import ApartmentUpdate from './pages/ApartmentUpdate'
+import './App.css'
 
 
 import {
@@ -31,6 +34,34 @@ class App extends React.Component {
     .catch(errors => console.log("Read errors:", errors))
   }
 
+  createApartment = (newapartment) => {
+    console.log(newapartment)
+    fetch("http://localhost:3000/apartments", {
+      body: JSON.stringify(newapartment),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      method: "POST"
+    })
+    .then(response => response.json())
+    .then(payload => this.readApartments())
+    .catch(errors => console.log("Apartment create fetch errors:", errors))
+    // console.log(newapartment)
+  }
+
+  updateApartment = (editapartment, id) => {
+    fetch(`http://localhost:3000/apartments/${id}`, {
+      body: JSON.stringify(editapartment),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      method: "PATCH"
+    })
+    .then(response => response.json())
+    .then(payload => this.readApartments())
+    .catch(errors => console.log("Apartment update fetch errors:", errors))
+  }
+
   render () {
     const{
       logged_in,
@@ -41,7 +72,7 @@ class App extends React.Component {
 
     return (
       <Router>
-        <h1>Appartment App</h1>
+        
         <Header sign_in_route={ sign_in_route} 
           sign_out_route={sign_out_route} 
           logged_in={ logged_in}
@@ -56,6 +87,12 @@ class App extends React.Component {
             let apartment = this.state.apartments.find(apartment =>  apartment.id === +id)
             return <ApartmentShow apartment= {apartment}/>
           }}/>
+          <Route path="/apartmentnew" render={(props) => <ApartmentNew createApartment={this.createApartment} user={current_user}/> } />
+          <Route path={"/apartmentupdate/:id"} render={ (props) => {
+            let id =props.match.params.id
+            let apartment = this.state.apartments.find(apartment => apartment.id === +id)
+            return <ApartmentUpdate updateApartment={ this.updateApartment } apartment={apartment}/>
+          }} />
           <Route component={ NotFound }/>
         </Switch>
       </Router>

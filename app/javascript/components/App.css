@@ -1,0 +1,39 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+
+  nav.navbar.navbar-light.bg-faded {
+    padding: 0 !important;
+    font-size: 20px;
+  }
+
+.header-main {
+    display: flex;
+    align-content: flex-end;
+    justify-content: space-around;
+    background-color: #555555;
+    padding-bottom: 10px;
+}
+
+a.mr-auto.navbar-brand {
+    padding: 0 !important;
+  }
+
+  button.mr-2.navbar-toggler {
+    margin-top: 40px;
+    margin-right: 40px;
+    background-color: #FFFEF1;
+  }
+
+  ul.navbar-nav {
+    padding-right: 30px;
+    text-align: right;
+  }
+
+
+.homestyle {
+    display:flex;
+    justify-content: center;
+    /* background-color: bisque; */
+}
