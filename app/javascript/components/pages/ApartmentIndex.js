@@ -1,28 +1,24 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
-import { Button } from 'reactstrap'
+import { Button, Card } from 'reactstrap'
 
 export class ApartmentIndex extends Component {
     render() {
         const{ apartments } = this.props
         return (
             <div>
-                <h1>Apartments</h1>
+                <h1 className="index-title">Apartments</h1>
                 {apartments && apartments.map(apartment => {
                     return <div key={apartment.id}>
+                        <Card  className="apartment-index-card">
                         <p>Street: {apartment.street}</p>
                         <p>City: {apartment.city}</p>
-                        {/* <p>{apartment.state}</p> */}
-                        {/* <p>{apartment.manager}</p>
-                        <p>{apartment.managers_email}</p> */}
-                        {/* <p>{apartment.price}</p> */}
                         <p>Bedrooms: {apartment.bedrooms}</p>
                         <p>Bathrooms: {apartment.bathrooms}</p>
-                        {/* <p>{apartment.pets}</p> */}
-                        {/* <p>{apartment.user_id}</p> */}
                         <NavLink to= {`/apartmentshow/${apartment.id}`} key = {apartment.id}>
-                            <Button>More Info</Button>
+                            <Button className="button-style">More Info</Button>
                         </NavLink>
+                        </Card>
                     </div>
                 })}
             </div>

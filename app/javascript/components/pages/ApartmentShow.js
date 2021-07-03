@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Card, CardTitle, CardText } from 'reactstrap'
+import { Card, CardText, NavItem } from 'reactstrap'
 import { NavLink } from 'react-router-dom'
 
 export class ApartmentShow extends Component {
@@ -8,8 +8,9 @@ export class ApartmentShow extends Component {
         return (
             <div>
                 {apartment &&
-                <Card>
-                <CardTitle tag="h5">Street: {apartment.street}</CardTitle>
+                <Card className="apartment-show-main">
+                <img src={ apartment.picture } alt="apartment picture"></img>
+                <CardText>Street: {apartment.street}</CardText>
                 <CardText>City: {apartment.city}</CardText>
                 <CardText>State: {apartment.state}</CardText>
                 <CardText>Manager: {apartment.manager}</CardText>
@@ -18,9 +19,14 @@ export class ApartmentShow extends Component {
                 <CardText>Bedrooms: {apartment.bedrooms}</CardText>
                 <CardText>Bathrooms: {apartment.bathrooms}</CardText>
                 <CardText>Pets: {apartment.pets}</CardText>
-                <CardText>User ID: {apartment.user_id}</CardText>
                 </Card>
                 }
+                    {apartment.user_id === this.props.user.id && 
+                    <NavItem>
+                            <NavLink to={`/apartmentupdate/${apartment.id}`}>Edit Apartment</NavLink>
+                    </NavItem>
+                    }
+                
             </div>
         )
     }

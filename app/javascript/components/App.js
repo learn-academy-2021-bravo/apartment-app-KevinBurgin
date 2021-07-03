@@ -36,7 +36,7 @@ class App extends React.Component {
 
   createApartment = (newapartment) => {
     console.log(newapartment)
-    fetch("http://localhost:3000/apartments", {
+    fetch("/apartments", {
       body: JSON.stringify(newapartment),
       headers: {
         "Content-Type": "application/json"
@@ -50,14 +50,21 @@ class App extends React.Component {
   }
 
   updateApartment = (editapartment, id) => {
-    fetch(`http://localhost:3000/apartments/${id}`, {
+    console.log(editapartment)
+    fetch(`/apartments/${id}`, {
       body: JSON.stringify(editapartment),
       headers: {
         "Content-Type": "application/json"
       },
       method: "PATCH"
     })
-    .then(response => response.json())
+    .then(response => {
+      if(response.status === 422){
+        alert("Please check your submission.")
+      } else {
+        return response.json()
+      }
+    })
     .then(payload => this.readApartments())
     .catch(errors => console.log("Apartment update fetch errors:", errors))
   }
@@ -85,13 +92,13 @@ class App extends React.Component {
           <Route path="/apartmentshow/:id" render={(props) =>{
             let id = props.match.params.id
             let apartment = this.state.apartments.find(apartment =>  apartment.id === +id)
-            return <ApartmentShow apartment= {apartment}/>
+            return <ApartmentShow apartment= {apartment} user={current_user}/>
           }}/>
           <Route path="/apartmentnew" render={(props) => <ApartmentNew createApartment={this.createApartment} user={current_user}/> } />
           <Route path={"/apartmentupdate/:id"} render={ (props) => {
             let id =props.match.params.id
             let apartment = this.state.apartments.find(apartment => apartment.id === +id)
-            return <ApartmentUpdate updateApartment={ this.updateApartment } apartment={apartment}/>
+            return <ApartmentUpdate updateApartment={ this.updateApartment } apartment={ apartment } user={current_user}/>
           }} />
           <Route component={ NotFound }/>
         </Switch>

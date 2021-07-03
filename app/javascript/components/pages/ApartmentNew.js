@@ -7,6 +7,7 @@ export class ApartmentNew extends Component {
         super(props)
         this.state={
             form: {
+                picture: "",
                 street: "",
                 city: "",
                 state: "",
@@ -38,8 +39,15 @@ export class ApartmentNew extends Component {
     render() {
         return (
             <div>
-                <h1>Apartment new page</h1>
-                <Form>
+                <h1 className="new-title">List A New Apartment</h1>
+                <Form className="new-form">
+                <FormGroup>
+                        <Label for = "picture">Apartment Picture</Label>
+                        <Input type = "text" name = "picture" 
+                        onChange={this.handleChange}
+                        value = { this.state.form.picture }/>
+                    </FormGroup>
+                    <br/>
                     <FormGroup>
                         <Label for = "street">Apartment's Street</Label>
                         <Input type = "text" name = "street" 
@@ -103,7 +111,7 @@ export class ApartmentNew extends Component {
                         value = { this.state.form.pets }/>
                     </FormGroup>
                     
-                    <Button name="submit" onClick={this.handleSubmit}>Add Apartment</Button>
+                    <Button className="button-style" name="submit" onClick={this.handleSubmit}>Add Apartment</Button>
                 </Form>
                 {this.state.submitted && <Redirect to = "/apartmentindex" />}
 

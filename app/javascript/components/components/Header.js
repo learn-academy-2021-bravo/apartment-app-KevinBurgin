@@ -35,6 +35,7 @@ const Header = (props) =>{
                             <NavItem>
                                 <NavLink to="/apartmentnew">List New Apartments</NavLink>
                             </NavItem>
+                            <br/>
                         </Nav>
                     </Collapse>
                 </Navbar>

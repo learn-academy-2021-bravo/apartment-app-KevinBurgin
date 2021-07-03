@@ -3,19 +3,22 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
 import { Redirect } from 'react-router-dom'
 
 export class ApartmentUpdate extends Component {
-    constructor(porps){
+    constructor(props){
         super(props)
+        const{apartment} =this.props
         this.state = {
             form: {
-                street: this.porps.apartment ? this.props.apartment.street : "",
-                city: this.porps.apartment ? this.props.apartment.city : "",
-                state: this.porps.apartment ? this.props.apartment.state : "",
-                manager: this.porps.apartment ? this.props.apartment.manager : "",
-                managers_email: this.porps.apartment ? this.props.apartment.managers_email : "",
-                price: this.porps.apartment ? this.props.apartment.price : "",
-                bedrooms: this.porps.apartment ? this.props.apartment.bedrooms : "",
-                bathrooms: this.porps.apartment ? this.props.apartment.bathrooms : "",
-                pets: this.porps.apartment ? this.props.apartment.pets : ""
+                picture: apartment ? apartment.picture : "",
+                street: apartment ? apartment.street : "",
+                city: apartment ? apartment.city : "",
+                state: apartment ? apartment.state : "",
+                manager: apartment ? apartment.manager : "",
+                managers_email: apartment ? apartment.managers_email : "",
+                price: apartment ? apartment.price : "",
+                bedrooms: apartment ? apartment.bedrooms : "",
+                bathrooms: apartment ? apartment.bathrooms : "",
+                pets: apartment ? apartment.pets : "",
+                user_id: this.props.user ? this.props.user.id : ""
             },
             submitted: false
         }
@@ -37,6 +40,16 @@ export class ApartmentUpdate extends Component {
             <div>
             <Form>
                 <FormGroup>
+                    <Label for="picture" id="picture">Apartment picture?</Label>
+                    <Input
+                    type="text"
+                    name="picture"
+                    onChange={ this.handleChange }
+                    value={ this.state.form.picture }
+                    />
+                </FormGroup>
+                <br />
+                <FormGroup>
                     <Label for="street" id="street">What is your apartment's street?</Label>
                     <Input
                     type="text"
@@ -45,12 +58,11 @@ export class ApartmentUpdate extends Component {
                     value={ this.state.form.street }
                     />
                 </FormGroup>
-            </Form>
             <br />
                 <FormGroup>
                     <Label for="city" id="city">What is your apartment's city?</Label>
                     <Input
-                    type="number"
+                    type="text"
                     name="city"
                     onChange={ this.handleChange }
                     value={ this.state.form.city }
@@ -123,13 +135,15 @@ export class ApartmentUpdate extends Component {
                     type="text"
                     name="pets"
                     onChange={ this.handleChange }
-                    value={ this.state.form.state }
+                    value={ this.state.form.pets }
                     />
                 </FormGroup>
+                </Form>
                 <br/>
-                <Button name="sumbit" onClick={ this.handleSubmit }>
+                <Button className="button-style" name="sumbit" onClick={ this.handleSubmit }>
                     Edit Apartment
                 </Button>
+                {this.state.submitted && <Redirect to = "/apartmentindex" />}
             </div>
         )
     }
